@@ -19,8 +19,7 @@ home_win_filter = st.sidebar.number_input('Introduce un número de victorias en 
 
 club = st.sidebar.multiselect(
             "Selecciona el equipo:",   
-            options = df['club'].unique(),
-            default = df['club'].unique()
+            options = df['club'].unique()
         )
 
 season = st.sidebar.multiselect(
