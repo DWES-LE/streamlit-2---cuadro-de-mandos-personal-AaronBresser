@@ -14,7 +14,10 @@ st.write('Esta página muestra datos de las temporada de La Liga desde 1970 hast
 # Agregar widgets para filtrar los datos
 st.sidebar.header("Porfavor, filtre aquí los datos que desea visualizar: ")
 
-points_filter = st.sidebar.slider('Filtrar por puntos en la temporada', 0, 100, (0, 100))
+puntos_min = st.sidebar.slider('Puntos mínimos', min_value=0, max_value=int(df['points'].max()))
+puntos_max = st.sidebar.slider('Puntos máximos', min_value=0, max_value=int(df['points'].max()), value=int(df['points'].max()))
+df = df[(df['points'] >= puntos_min) & (df['points'] <= puntos_max)]
+
 home_win_filter = st.sidebar.number_input('Introduce un número de victorias en casa', 0, 20, 0)
 
 club = st.sidebar.multiselect(
@@ -33,7 +36,6 @@ df = df.query(
 )
 
 # Filtrar los datos
-df = df[(df['points'] >= points_filter[0]) & (df['points'] <= points_filter[1])]
 df = df[df['home_win'] >= home_win_filter]
 
 # KPI de puntos
